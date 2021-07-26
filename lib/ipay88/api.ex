@@ -6,7 +6,7 @@ defmodule IPay88.API do
 
   alias IPay88.{Config, Request, Signature}
 
-  @api_path "https://payment.ipay88.com.my/epayment/"
+  @api_path "https://payment.ipay88.com.my/epayment"
   @credit_card_payment_id 2
 
   @type method :: :get | :post | :put | :delete | :patch
@@ -30,10 +30,10 @@ defmodule IPay88.API do
   Create a payment request
   """
 
-  @spec create_payment(create_payment_params) ::
-          {:ok, map} | {:error, Error.t()}
+  @spec create_payment(create_payment_params, headers, map) ::
+          {:ok, map} | {:error, any()}
   def create_payment(body, headers \\ %{}, opts \\ []) do
-    req_url = build_path("entry.asp")
+    req_url = build_path("/entry.asp")
 
     req_body =
       %{
@@ -69,7 +69,7 @@ defmodule IPay88.API do
     Request.request(:post, req_url, req_body, headers, opts)
     |> case do
       {:ok, ""} ->
-        {:ok, ""}
+        {:ok, %{}}
 
       {:ok, body} ->
         decoded_body = Config.json_library().decode!(body)
