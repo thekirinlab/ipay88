@@ -21,7 +21,7 @@ defmodule IPay88.Request do
     {:ok, body}
   end
 
-  defp handle_response({:ok, %Response{body: body, status_code: _, request_url: request_url}}) do
+  defp handle_response({:ok, %Response{body: body, status_code: _, request_url: _}}) do
     Logger.error(inspect(body))
     {:error, body}
   end

@@ -4,14 +4,8 @@ defmodule IPay88.Config do
   """
 
   @doc """
-  Resolves the given key from the application's configuration returning the
-  wrapped expanded value. If the value was a function it get's evaluated, if
-  the value is a touple of three elements it gets applied.
-  """
-
-  @doc """
   In config.exs your implicit or expicit configuration is:
-      config ex_:crowdin, json_library: Poison # defaults to Jason but can be configured to Poison
+      config :ipay88, json_library: Poison # defaults to Jason but can be configured to Poison
   """
   @spec json_library() :: module
   def json_library do
@@ -73,6 +67,12 @@ defmodule IPay88.Config do
   def backend_url do
     resolve(:backend_url)
   end
+
+  @doc """
+  Resolves the given key from the application's configuration returning the
+  wrapped expanded value. If the value was a function it get's evaluated, if
+  the value is a touple of three elements it gets applied.
+  """
 
   @spec resolve(atom, any) :: any
   def resolve(key, default \\ nil)
